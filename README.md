@@ -1,24 +1,27 @@
 # Classificador de Documentos Fiscais
 
-## pt-BR
+Classifica documentos fiscais brasileiros (nota fiscal eletrônica — NF-e e boleto bancário) a partir do texto extraído de um arquivo. Extrai texto de PDFs com pdfminer.six e treina um pipeline de TF-IDF mais regressão logística do scikit-learn para prever o tipo do documento.
 
-### O que faz
+MVP: extração de texto e classificação de tipo de documento.
 
-Classifica documentos fiscais (nota fiscal eletrônica — NF-e e boleto bancário) a partir do texto extraído do arquivo. Extrai texto de PDFs com pdfminer.six e treina um modelo de TF-IDF mais regressão logística do scikit-learn para prever o tipo do documento.
+## Stack
 
-MVP: extração de texto + classificação de tipo de documento.
+- Python >= 3.10
+- scikit-learn >= 1.3.0
+- pdfminer.six >= 20241008
+- pytest >= 8.0.0 (dependência de desenvolvimento)
 
-Stack: Python, scikit-learn, TF-IDF, pdfminer.six.
+## Como instalar
 
-### Como usar
-
-Crie o ambiente e instale as dependências:
+Crie o ambiente virtual e instale as dependências:
 
 ```
 python -m venv .venv
 .venv\Scripts\activate
 pip install -e ".[dev]"
 ```
+
+## Como usar
 
 Execute a CLI passando um arquivo (PDF ou texto):
 
@@ -33,7 +36,9 @@ Arquivo: documento.txt
 Tipo previsto: nfe
 ```
 
-### Testes
+O CLI aceita arquivos PDF (extração com pdfminer.six) e arquivos de texto simples.
+
+## Testes
 
 Rode a suíte pytest:
 
@@ -41,55 +46,24 @@ Rode a suíte pytest:
 python -m pytest -q
 ```
 
-Critério de aceitação: F1 macro maior que 0,80 e todos os testes verdes.
+Critério de aceitação: F1 macro maior que 0,80 e todos os testes verdes. Resultado atual: 9 testes passando, F1 macro = 1,00, acurácia = 1,00.
 
-### Licença e autor
+## Estrutura do projeto
+
+```
+src/classificador_fiscais/
+  __init__.py    — API pública
+  __main__.py    — CLI (python -m classificador_fiscais)
+  classifier.py  — TF-IDF + regressão logística, dataset sintético, treina/prediz
+  extractor.py   — extração de texto (PDF com pdfminer.six, texto simples)
+  pipeline.py    — extração e classificação (Classificacao, classifica_arquivo)
+tests/
+  test_classifier.py
+  test_extractor.py
+  test_pipeline.py
+pyproject.toml   — metadados, dependências, scripts, config do pytest
+```
+
+## Licença e autor
 
 MIT. Autor: Kelvin Oliveira.
-
-## en
-
-### What it does
-
-Classifies fiscal documents (electronic invoice — NF-e and bank slip) from the text extracted from a file. Extracts text from PDFs with pdfminer.six and trains a TF-IDF plus logistic regression model from scikit-learn to predict the document type.
-
-MVP: text extraction + document type classification.
-
-Stack: Python, scikit-learn, TF-IDF, pdfminer.six.
-
-### How to use
-
-Create the environment and install dependencies:
-
-```
-python -m venv .venv
-.venv\Scripts\activate
-pip install -e ".[dev]"
-```
-
-Run the CLI with a file (PDF or text):
-
-```
-python -m classificador_fiscais document.txt
-```
-
-Example output:
-
-```
-Arquivo: document.txt
-Tipo previsto: nfe
-```
-
-### Tests
-
-Run the pytest suite:
-
-```
-python -m pytest -q
-```
-
-Acceptance criterion: macro F1 greater than 0.80 and all tests green.
-
-### License and author
-
-MIT. Author: Kelvin Oliveira.
