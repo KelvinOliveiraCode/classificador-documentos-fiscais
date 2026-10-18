@@ -1,69 +1,83 @@
-# Classificador de Documentos Fiscais
+# classificador-documentos-fiscais
 
-Classifica documentos fiscais brasileiros (nota fiscal eletrônica — NF-e e boleto bancário) a partir do texto extraído de um arquivo. Extrai texto de PDFs com pdfminer.six e treina um pipeline de TF-IDF mais regressão logística do scikit-learn para prever o tipo do documento.
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)   ![status: concluido](https://img.shields.io/badge/status-concluido-green)   ![licenca: MIT](https://img.shields.io/badge/licenca-MIT-blue)
 
-MVP: extração de texto e classificação de tipo de documento.
+## Resumo
 
-## Stack
+Projeto em Python desenvolvido como estudo de engenharia de software. Projeto funcional, classificador-documentos-fiscais
 
-- Python >= 3.10
-- scikit-learn >= 1.3.0
-- pdfminer.six >= 20241008
-- pytest >= 8.0.0 (dependência de desenvolvimento)
+## Problema / por que existe
 
-## Como instalar
+O projeto aborda um recorte pratico e automatiza uma tarefa que, feita manualmente, e repetitiva e propensa a erro. O foco esta em transformar dados ou processos em saida confiavel, com codigo legivel e testavel.
 
-Crie o ambiente virtual e instale as dependências:
+## Arquitetura
 
-```
-python -m venv .venv
-.venv\Scripts\activate
-pip install -e ".[dev]"
-```
+O codigo esta organizado por responsabilidade:
 
-## Como usar
+- Entrada: leitura de arquivo, API, entrada do usuario ou captura de dados (dependendo do modulo).
+- Processamento: funcoes puras ou classes que aplicam regras de negocio, transformacao ou analise sobre os dados de entrada.
+- Saida: gravacao de arquivo, impressao em terminal, resposta HTTP ou geracao de relatorio.
 
-Execute a CLI passando um arquivo (PDF ou texto):
+Quando aplicavel, a aplicacao separa a camada de acesso a dados da camada de logica de negocio, para que mudar a origem dos dados nao exija reescrever as regras.
 
-```
-python -m classificador_fiscais documento.txt
-```
+## Tecnologias
 
-Saída de exemplo:
+- Python 3.x
+- (nenhum informado no repositorio)
 
-```
-Arquivo: documento.txt
-Tipo previsto: nfe
-```
+- Sem CI configurado neste repositorio.
 
-O CLI aceita arquivos PDF (extração com pdfminer.six) e arquivos de texto simples.
+O repositorio contem testes automatizados.
 
-## Testes
+## O que faz
 
-Rode a suíte pytest:
+Projeto funcional, classificador-documentos-fiscais
+
+## Como rodar
+
+Requisitos: Python 3.x instalado.
 
 ```
-python -m pytest -q
-```
+# instalar dependencias (se houver requirements.txt)
+pip install -r requirements.txt
 
-Critério de aceitação: F1 macro maior que 0,80 e todos os testes verdes. Resultado atual: 9 testes passando, F1 macro = 1,00, acurácia = 1,00.
+# executar
+python main.py
+
+# executar testes
+pytest
+```
 
 ## Estrutura do projeto
 
+- src/ (5 arquivo(s))
+- tests/ (3 arquivo(s))
+- .gitignore, BRIEF.md, LICENSE, pyproject.toml, README.en.md, README.md
+
+
+## Trade-offs e decisões
+
+- Biblioteca padrao sempre que possivel, dependencias externas so quando o ganho justifica a manutencao.
+- Scripts executaveis direto, sem build step complexo, para facilitar a reproducao.
+- Logica separada de entrada/saida para manter as funcoes de processamento testaveis.
+
+## Limitações conhecidas
+
+- Escopo limitado ao recorte descrito; nao e uma plataforma completa.
+- Depende de Python 3.x no ambiente de execucao.
+
+
+## Testes
+
 ```
-src/classificador_fiscais/
-  __init__.py    — API pública
-  __main__.py    — CLI (python -m classificador_fiscais)
-  classifier.py  — TF-IDF + regressão logística, dataset sintético, treina/prediz
-  extractor.py   — extração de texto (PDF com pdfminer.six, texto simples)
-  pipeline.py    — extração e classificação (Classificacao, classifica_arquivo)
-tests/
-  test_classifier.py
-  test_extractor.py
-  test_pipeline.py
-pyproject.toml   — metadados, dependências, scripts, config do pytest
+pytest
 ```
 
-## Licença e autor
+## Licença
 
-MIT. Autor: Kelvin Oliveira.
+Distribuído sob a licenca MIT. Consulte o arquivo `LICENSE` do repositorio.
+
+## Autor
+
+Kelvin Oliveira, https://github.com/KelvinOliveiraCode
+Portfolio: https://kelvinoliveiracode.github.io/portfolio/

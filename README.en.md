@@ -1,69 +1,84 @@
-# Classificador de Documentos Fiscais
 
-Classifies Brazilian fiscal documents (electronic invoice — NF-e and bank slip) from the text extracted from a file. Extracts text from PDFs with pdfminer.six and trains a TF-IDF plus logistic regression pipeline from scikit-learn to predict the document type.
+# classificador-documentos-fiscais
 
-MVP: text extraction and document type classification.
+![language: Python](https://img.shields.io/badge/language-Python-blue?logo=python)   ![status: done](https://img.shields.io/badge/status-done-green)   ![license: MIT](https://img.shields.io/badge/license-MIT-blue)
 
-## Stack
+## Summary
 
-- Python >= 3.10
-- scikit-learn >= 1.3.0
-- pdfminer.six >= 20241008
-- pytest >= 8.0.0 (dev dependency)
+Python project developed as a software engineering study. Projeto funcional, classificador-documentos-fiscais
 
-## Installation
+## Problem / why it exists
 
-Create the virtual environment and install dependencies:
+The project addresses a practical scope and automates a task that, done manually, is repetitive and error-prone. The focus is on turning data or processes into reliable output, with readable and testable code.
 
-```
-python -m venv .venv
-.venv\Scripts\activate
-pip install -e ".[dev]"
-```
+## Architecture
 
-## Usage
+The code is organized by responsibility:
 
-Run the CLI passing a file (PDF or text):
+- Input: reading a file, API, user input or data capture (depending on the module).
+- Processing: pure functions or classes that apply business rules, transformation or analysis over the input data.
+- Output: writing a file, printing to terminal, HTTP response or report generation.
 
-```
-python -m classificador_fiscais document.txt
-```
+When applicable, the application separates the data access layer from the business logic layer, so changing the data source does not require rewriting the rules.
 
-Example output:
+## Technologies
 
-```
-Arquivo: document.txt
-Tipo previsto: nfe
-```
+- Python 3.x
+- (none declared in the repository)
 
-The CLI accepts PDF files (text extraction with pdfminer.six) and plain text files.
+- No CI configured in this repository.
 
-## Tests
+The repository contains automated tests.
 
-Run the pytest suite:
+## What it does
+
+Projeto funcional, classificador-documentos-fiscais
+
+## How to run
+
+Requirements: Python 3.x installed.
 
 ```
-python -m pytest -q
-```
+# install dependencies (if requirements.txt exists)
+pip install -r requirements.txt
 
-Acceptance criterion: macro F1 greater than 0.80 and all tests green. Current result: 9 tests passing, macro F1 = 1.00, accuracy = 1.00.
+# run
+python main.py
+
+# run tests
+pytest
+```
 
 ## Project structure
 
+- src/ (5 arquivo(s))
+- tests/ (3 arquivo(s))
+- .gitignore, BRIEF.md, LICENSE, pyproject.toml, README.en.md, README.md
+
+
+## Trade-offs and decisions
+
+- Standard library whenever possible; external dependencies only when the benefit justifies maintenance.
+- Executable scripts straight away, no complex build step, to ease reproduction.
+- Logic separated from input/output to keep processing functions testable.
+
+## Known limitations
+
+- Limited scope to the described slice; it is not a complete platform.
+- Depends on Python 3.x at runtime.
+
+
+## Tests
+
 ```
-src/classificador_fiscais/
-  __init__.py    — public API
-  __main__.py    — CLI (python -m classificador_fiscais)
-  classifier.py  — TF-IDF + logistic regression, synthetic dataset, train/predict
-  extractor.py   — text extraction (PDF with pdfminer.six, plain text)
-  pipeline.py    — extraction and classification (Classificacao, classifica_arquivo)
-tests/
-  test_classifier.py
-  test_extractor.py
-  test_pipeline.py
-pyproject.toml   — metadata, dependencies, scripts, pytest config
+pytest
 ```
 
-## License and author
+## License
 
-MIT. Author: Kelvin Oliveira.
+Distributed under the MIT License. See the `LICENSE` file in this repository.
+
+## Author
+
+Kelvin Oliveira, https://github.com/KelvinOliveiraCode
+Portfolio: https://kelvinoliveiracode.github.io/portfolio/
